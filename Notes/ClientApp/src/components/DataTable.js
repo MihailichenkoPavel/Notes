@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Table, Button } from 'reactstrap';
 import AddNoteModal from './form/AddNoteModal';
+import { withTranslation } from "react-i18next";
 
 class DataTable extends Component {
 
@@ -21,20 +22,22 @@ class DataTable extends Component {
     }
 
     render() {
+        const { t, i18n } = this.props;
+
         const items = this.props.items;
         return <Table striped>
             <thead className="thead-dark">
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
-                    <th>Text</th>
-                    <th style={{ textAlign: "center" }}>Actions</th>
+                    <th>{t("Name")}</th>
+                    <th>{t("Text")}</th>
+                    <th style={{ textAlign: "center" }}>{t("Actions")}</th>
                 </tr>
             </thead>
             <tbody>
                 {!items || items.length <= 0 ?
                     <tr>
-                        <td colSpan="6" align="center"><b>No Notes yet</b></td>
+                        <td colSpan="6" align="center"><b>{t("No Notes yet")}</b></td>
                     </tr>
                     : items.map(item => (
                         <tr key={item.id}>
@@ -54,7 +57,7 @@ class DataTable extends Component {
                                         note={item}
                                         updateNoteIntoState={this.props.updateState} />
                   &nbsp;&nbsp;&nbsp;
-                  <Button color="danger" onClick={() => this.deleteItem(item.id)}>Delete</Button>
+                  <Button color="danger" onClick={() => this.deleteItem(item.id)}>{t("Delete")}</Button>
                                 </div>
                             </td>
                         </tr>
@@ -64,4 +67,4 @@ class DataTable extends Component {
     }
 }
 
-export default DataTable;
+export default withTranslation()(DataTable);

@@ -1,6 +1,8 @@
 ﻿import React, { Component, Fragment } from 'react';
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import AddNoteForm from './AddNoteForm';
+import { withTranslation } from "react-i18next";
+import i18next from 'i18next';
 
 class AddNoteModal extends Component {
 
@@ -15,21 +17,22 @@ class AddNoteModal extends Component {
     }
 
     render() {
+        const { t, i18n } = this.props;
         const isNew = this.props.isNew;
 
-        let title = 'Edit Note';
+        let title = i18next.t('Edit Note');
         let button = '';
         if (isNew) {
-            title = 'Add Note';
+            title = i18next.t('Add Note');
 
             button = <Button
                 color="success"
                 onClick={this.toggle}
-                style={{ minWidth: "200px" }}>Add</Button>;
+                style={{ minWidth: "200px" }}>{t("Add")}</Button>;
         } else {
             button = <Button
                 color="warning"
-                onClick={this.toggle}>Edit</Button>;
+                onClick={this.toggle}>{t("Edit")}</Button>;
         }
 
         return <Fragment>
@@ -49,4 +52,4 @@ class AddNoteModal extends Component {
     }
 }
 
-export default AddNoteModal;
+export default withTranslation()(AddNoteModal);

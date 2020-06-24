@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import { withTranslation } from "react-i18next";
 
 class AddNoteForm extends React.Component {
 
@@ -61,18 +62,19 @@ class AddNoteForm extends React.Component {
     }
 
     render() {
+        const { t, i18n } = this.props;
         return <Form onSubmit={this.props.note ? this.submitEdit : this.submitNew}>
             <FormGroup>
-                <Label for="name">Name:</Label>
+                <Label for="name">{t("Name")}:</Label>
                 <Input type="text" name="name" onChange={this.onChange} value={this.state.name === '' ? '' : this.state.name} />
             </FormGroup>
             <FormGroup>
-                <Label for="text">Text:</Label>
+                <Label for="text">{t("Text")}:</Label>
                 <Input type="text" name="text" onChange={this.onChange} value={this.state.text === null ? '' : this.state.text} />
             </FormGroup>
-            <Button>Send</Button>
+            <Button>{t("Send")}</Button>
         </Form>;
     }
 }
 
-export default AddNoteForm;
+export default withTranslation()(AddNoteForm);

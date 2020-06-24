@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Col, Container, Row } from 'reactstrap';
+import { Button, Col, Container, Row } from 'reactstrap';
 import DataTable from './DataTable';
 import AddNoteModal from './form/AddNoteModal';
+import { withTranslation } from "react-i18next";
 
-export class Home extends Component {
+class Home extends Component {
 
     state = {
         items: []
@@ -36,10 +37,19 @@ export class Home extends Component {
     }
 
     render() {
+        const { t, i18n } = this.props;
+
+        const changeLanguage = lng => {
+            i18n.changeLanguage(lng);
+        };
         return <Container style={{ paddingTop: "100px" }}>
+            <div>
+                <Button color="success" onClick={() => changeLanguage("ru")}>ru</Button>
+                <Button color="success" onClick={() => changeLanguage("en")}>en</Button>
+            </div>
             <Row>
                 <Col>
-                    <h3>List Notes</h3>
+                    <h3>{t("List Notes")}</h3>
                 </Col>
             </Row>
             <Row>
@@ -58,3 +68,5 @@ export class Home extends Component {
         </Container>;
     }
 }
+
+export default withTranslation()(Home);
